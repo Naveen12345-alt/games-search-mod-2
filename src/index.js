@@ -7,12 +7,14 @@ import /*webpackPrefetch:true*/ App from './App'
 const rootElement = document.getElementById('root')
 
 if (rootElement.hasChildNodes()) {
-  ReactDOM.hydrate(
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>,
-    rootElement,
-  )
+  setTimeout(() => {
+    ReactDOM.hydrate(
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>,
+      rootElement,
+    )
+  }, 2000)
 } else {
   ReactDOM.render(
     <BrowserRouter>
