@@ -29,7 +29,10 @@
   },
   "reactSnap": {
     "inlineCss": true,
-    "puppeteerExecutablePath": "/usr/bin/google-chrome-unstable"
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox"
+    ]
   },
   "browserslist": {
     "production": [
