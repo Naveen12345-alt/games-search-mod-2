@@ -4,60 +4,16 @@ import {
   searchGameURL,
   upcomingGamesURL,
 } from '../api'
-import any from 'promise.any'
 //Action Creator
 
 export const loadGames = async (setLoading, dispatch) => {
   //FETCH AXIOS
 
-  setLoading(true)
-  any([
-    fetch(upcomingGamesURL()),
+  Promise.all([
     fetch(newGamesURL()),
     fetch(popularGamesURL()),
+    fetch(upcomingGamesURL()),
   ])
-    .then(resp => resp.json())
-    .then(res => {
-      setLoading(false)
-      const string = res.next.split('&ordering=-')[1]
-      let type = ''
-      if (string.includes('added')) {
-        type = 'Upcoming'
-      } else if (string.includes('released')) {
-        type = 'Popular'
-      } else {
-        type = 'NewGames'
-      }
-      if (type === 'NewGames') {
-        dispatch({
-          type: `FETCH_${type}`,
-          payload: {
-            newGames: res.results,
-          },
-        })
-      } else if (type === 'Upcoming') {
-        dispatch({
-          type: `FETCH_${type}`,
-          payload: {
-            Upcoming: res.results,
-          },
-        })
-      } else {
-        dispatch({
-          type: `FETCH_${type}`,
-          payload: {
-            popular: res.results,
-          },
-        })
-      }
-    })
-    .then(() =>
-      Promise.all([
-        fetch(newGamesURL()),
-        fetch(popularGamesURL()),
-        fetch(upcomingGamesURL()),
-      ]),
-    )
     .then(responses => {
       return Promise.all(
         responses.map(function (response) {
