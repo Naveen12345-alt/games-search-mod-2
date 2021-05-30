@@ -6,26 +6,17 @@ import Game from '../components/Game'
 const Upcoming = ({loading, upcoming}) => {
   return (
     <GameList variants={fadeIn} initial="hidden" animate="show">
-      {upcoming && upcoming.length ? <h2>Upcoming Games</h2> : ''}
+      <h2>Upcoming Games</h2>
       <Games>
-        {loading ? (
-          <React.Fragment>
-            <h4>Patience is What makes a Gamer awesome</h4>
-            <Loading>loading...</Loading>
-          </React.Fragment>
-        ) : upcoming && upcoming.length ? (
-          upcoming.map(game => (
-            <Game
-              name={game.name}
-              released={game.released}
-              id={game.id}
-              image={game.background_image}
-              key={game.id}
-            />
-          ))
-        ) : (
-          ''
-        )}
+        {upcoming.map(game => (
+          <Game
+            name={game.name}
+            released={game.released}
+            id={game.id}
+            image={game.background_image}
+            key={game.id}
+          />
+        ))}
       </Games>
     </GameList>
   )
@@ -51,19 +42,6 @@ const Games = styled.div`
   }
   grid-column-gap: 3rem;
   grid-row-gap: 5rem;
-`
-const Loading = styled.div`
-  width: 100%;
-  min-height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: grid;
-  place-items: center;
-  color: white;
-  font-weight: 700;
-  letter-spacing: 2px;
 `
 
 export default Upcoming
