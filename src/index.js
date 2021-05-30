@@ -14,7 +14,7 @@ if (rootElement.hasChildNodes()) {
       </BrowserRouter>,
       rootElement,
     )
-  }, 3000)
+  }, 2000)
 } else {
   ReactDOM.render(
     <BrowserRouter>
