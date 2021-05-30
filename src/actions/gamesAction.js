@@ -3,29 +3,30 @@ import {
   popularGamesURL,
   searchGameURL,
   upcomingGamesURL,
-} from '../api';
+} from '../api'
+import any from 'promise.any'
 //Action Creator
 
 export const loadGames = async (setLoading, dispatch) => {
   //FETCH AXIOS
 
-  setLoading(true);
-  Promise.any([
+  setLoading(true)
+  any([
     fetch(upcomingGamesURL()),
     fetch(newGamesURL()),
     fetch(popularGamesURL()),
   ])
-    .then((resp) => resp.json())
-    .then((res) => {
-      setLoading(false);
-      const string = res.next.split('&ordering=-')[1];
-      let type = '';
+    .then(resp => resp.json())
+    .then(res => {
+      setLoading(false)
+      const string = res.next.split('&ordering=-')[1]
+      let type = ''
       if (string.includes('added')) {
-        type = 'Upcoming';
+        type = 'Upcoming'
       } else if (string.includes('released')) {
-        type = 'Popular';
+        type = 'Popular'
       } else {
-        type = 'NewGames';
+        type = 'NewGames'
       }
       if (type === 'NewGames') {
         dispatch({
@@ -33,21 +34,21 @@ export const loadGames = async (setLoading, dispatch) => {
           payload: {
             newGames: res.results,
           },
-        });
+        })
       } else if (type === 'Upcoming') {
         dispatch({
           type: `FETCH_${type}`,
           payload: {
             Upcoming: res.results,
           },
-        });
+        })
       } else {
         dispatch({
           type: `FETCH_${type}`,
           payload: {
             popular: res.results,
           },
-        });
+        })
       }
     })
     .then(() =>
@@ -55,16 +56,16 @@ export const loadGames = async (setLoading, dispatch) => {
         fetch(newGamesURL()),
         fetch(popularGamesURL()),
         fetch(upcomingGamesURL()),
-      ])
+      ]),
     )
-    .then((responses) => {
+    .then(responses => {
       return Promise.all(
         responses.map(function (response) {
-          return response.json();
-        })
-      );
+          return response.json()
+        }),
+      )
     })
-    .then((results) => {
+    .then(results => {
       dispatch({
         type: 'FETCH_GAMES',
         payload: {
@@ -72,23 +73,23 @@ export const loadGames = async (setLoading, dispatch) => {
           newGames: results[0].results,
           upcoming: results[2].results,
         },
-      });
-    });
+      })
+    })
   // );
-};
+}
 
 export const fetchSearch = async (game_name, isLoading, dispatch) => {
-  isLoading(true);
+  isLoading(true)
   await fetch(searchGameURL(game_name))
-    .then((responses) => responses.json())
-    .then((data) => {
+    .then(responses => responses.json())
+    .then(data => {
       dispatch({
         type: 'FETCH_SEARCHED',
         payload: {
           searched: data.results,
         },
-      });
-      isLoading(false);
-    });
+      })
+      isLoading(false)
+    })
   // );
-};
+}
