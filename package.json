@@ -28,7 +28,8 @@
     ]
   },
   "reactSnap": {
-    "inlineCss": true
+    "inlineCss": true,
+    "puppeteerExecutablePath": "/usr/bin/google-chrome-unstable"
   },
   "browserslist": {
     "production": [
