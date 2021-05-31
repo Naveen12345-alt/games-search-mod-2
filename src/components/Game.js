@@ -24,8 +24,6 @@ const Game = ({name, released, image, id}) => {
   }
   return (
     <React.Fragment>
-      {!pathId && <React.Fragment></React.Fragment>}
-      {pathId && !instate.game.id && <Loading>loading...</Loading>}
       {instate.game.id && pathId === instate.game.id.toString() ? (
         <GameDetail pathId={pathId} instate={instate} />
       ) : (
@@ -61,21 +59,6 @@ const StyledGame = styled.div`
     height: 40vh;
     object-fit: cover;
   }
-`
-const Loading = styled.div`
-  width: 100%;
-  min-height: 100vh;
-  z-index: 2;
-  opacity: 0.07;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: grey;
-  display: grid;
-  place-items: center;
-  color: white;
-  font-weight: 700;
-  letter-spacing: 2px;
 `
 
 export default Game
