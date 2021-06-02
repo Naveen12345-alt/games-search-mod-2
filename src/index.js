@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import loadable from '@loadable/component'
 import { PrerenderedComponent } from 'react-prerendered-component'
+import App from './App'
 
 const prerenderedLoadable = (dynamicImport) => {
   const LoadableComponent = loadable(dynamicImport)
@@ -28,7 +29,7 @@ if (rootElement.hasChildNodes()) {
 } else {
   ReactDOM.render(
     <BrowserRouter>
-      <MyComponent />
+      <App />
     </BrowserRouter>,
     rootElement
   )
