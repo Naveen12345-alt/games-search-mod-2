@@ -9,7 +9,7 @@ const prerenderedLoadable = (dynamicImport) => {
   const LoadableComponent = loadable(dynamicImport)
   return React.memo((props) => (
     // you can use the `.preload()` method from react-loadable or react-imported-component`
-    <PrerenderedComponent live={LoadableComponent.load()}>
+    <PrerenderedComponent live={LoadableComponent.preload()}>
       <LoadableComponent {...props} />
     </PrerenderedComponent>
   ))
@@ -20,11 +20,9 @@ const rootElement = document.getElementById('root')
 
 if (rootElement.hasChildNodes()) {
   ReactDOM.hydrate(
-    setTimeout(() => {
-      ;<BrowserRouter>
-        <MyComponent />
-      </BrowserRouter>
-    }, 3000),
+    <BrowserRouter>
+      <MyComponent />
+    </BrowserRouter>,
     rootElement
   )
 } else {
