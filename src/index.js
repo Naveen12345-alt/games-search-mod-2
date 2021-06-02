@@ -20,14 +20,11 @@ const rootElement = document.getElementById('root')
 
 if (rootElement.hasChildNodes()) {
   ReactDOM.hydrate(
-    setTimeout(
-      () => (
-        <BrowserRouter>
-          <MyComponent />
-        </BrowserRouter>
-      ),
-      3000
-    ),
+    setTimeout(() => {
+      ;<BrowserRouter>
+        <MyComponent />
+      </BrowserRouter>
+    }, 3000),
     rootElement
   )
 } else {
